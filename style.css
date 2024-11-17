@@ -110,8 +110,11 @@ header{
 }
 
 .ContactUs img{
-    width: 25px;
     color: #061536;
+}
+.ContactUs {
+    display: flex;
+    align-items: center;
 }
 
 .categoryContainer .item{
@@ -248,6 +251,12 @@ header{
 .CallInfo{
     padding: 10px;
 
+}
+#AddTocart{
+    width: 35px;
+}
+#callUsicon{
+    width: 25px;
 }
 
 .CallInfo span{
