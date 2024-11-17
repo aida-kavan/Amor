@@ -20,8 +20,12 @@
         </div>
 
         <div class="ContactUs">
-            <img id="callUsicon" src=" Call us.svg" alt="">
-            <img id="AddTocart" src=" add to cart.svg" alt="">
+            <a href="#ContactUs">
+                <img id="callUsicon" src=" Call us.svg" alt="">
+            </a>
+            <a href="">
+                <img id="AddTocart" src=" add to cart.svg" alt="">
+            </a>
         </div>
 
     </Header>
@@ -1480,48 +1484,27 @@
 
     </section>
 
-    <section class="callUs">
+    <section class="callUs" id="ContactUs">
         <div class="callContainer">
-            <img id="CloseBtn" src="./close (2).svg" alt="">
             <div class="callUsTitle">
                 راه های ارتباطی
             </div>
-            <div class="CallInfo flex">
+            <div class="CallInfo ">
                 <p>شماره تماس:</p>
                 <a href="tel:+989190061655">09190061655</a>
             </div>
-            <div class="CallInfo flex">
+            <div class="CallInfo ">
                 <p>اینستاگرام:</p>
                 <a href="https://www.instagram.com/amor_foodcafe/">Amor_foodcafe@</a>
+            </div>
+            <div class="CallInfo">
+                <p>آدرس:</p>
+                <span>کرج، شهرک بنفشه، بلوار شورا(آخوندی)، بین کوچه ی تیر و خرداد</span>
             </div>
         </div>
     </section>
 
 
-<script>
-    let $ = document;
-
-let ContactUs = $.getElementById("callUsicon")
-let CloseBtn = $.getElementById("CloseBtn")
-let CallUsContainer = $.querySelector(".callUs")
-
-console.log(ContactUs);
-
-
-
-ContactUs.addEventListener("click" , function () {
-    CallUsContainer.style.display = "inline"
-
-})
-
-CloseBtn.addEventListener("click" , function () {
-    CallUsContainer.style.display = "none"
-})
-
-
-
-
-</script>
 </body>
 
 </html>
