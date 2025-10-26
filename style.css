@@ -1,16 +1,16 @@
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
 }
 
-:root{
-    --main-color : #032420;
-    --Second-color : #FFFFFF;
+:root {
+    --main-color: #032420;
+    --Second-color: #FFFFFF;
     --third-color: #;
 }
 
-body{
+body {
     width: 100vw;
     background-color: var(--main-color);
     display: flex;
@@ -18,20 +18,30 @@ body{
     flex-direction: column;
     background-image: url(BG.png);
     background-size: contain;
-    
+    font-feature-settings: "lnum", "pnum";
+    /* فعال کردن اعداد فونت */
+    font-variant-numeric: normal;
+
 }
 
-a{
+html[lang="fa"],
+body {
+    font-feature-settings: "locl";
+    direction: rtl;
+}
+
+
+a {
     text-decoration: none;
     color: white;
 }
 
-html{
+html {
     scroll-behavior: smooth;
 }
 
 
-.flex{
+.flex {
     display: flex;
     align-items: center;
     justify-content: center;
@@ -39,16 +49,16 @@ html{
 
 
 @font-face {
-    font-family:Gilmoray ;
+    font-family: Gilmoray;
     src: url(Gilmoray.ttf);
 }
 
 @font-face {
     font-family: Doran;
-    src: url(./Doran-Bold.ttf);
+    src: url(./doran.ttf);
 }
 
-body{
+body {
     font-family: Doran;
     display: flex;
     align-items: center;
@@ -57,43 +67,44 @@ body{
 
 
 
-header{
+header {
     width: 90%;
     background-color: var(--Second-color);
     margin-top: 10px;
     border-radius: 1rem;
     display: flex;
     align-items: center;
-    justify-content: space-between ;
+    justify-content: space-between;
     padding: 0px 15px;
 }
 
 
-.BrandName{
+.BrandName {
     font-family: Gilmoray;
     display: flex;
     align-items: center;
     justify-content: center;
     flex-direction: column;
-    
+
 }
 
-.BrandName::after{
+.BrandName::after {
     content: "cafe and restaurant";
 }
 
 
-.BrandLogo img{
+.BrandLogo img {
     width: 70px;
     height: auto;
 }
-.mainSection{
+
+.mainSection {
     display: flex;
     flex-direction: column;
-    align-items:center ;
+    align-items: center;
 }
 
-.Category{
+.Category {
     width: 90%;
     height: max-content;
     margin-top: 30px;
@@ -102,22 +113,23 @@ header{
     flex-direction: column;
 }
 
-.categoryContainer{
+.categoryContainer {
     display: grid;
-    grid-template-columns: repeat(2,1fr);
+    grid-template-columns: repeat(2, 1fr);
     gap: 10px;
     width: 100%;
 }
 
-.ContactUs img{
+.ContactUs img {
     color: #061536;
 }
+
 .ContactUs {
     display: flex;
     align-items: center;
 }
 
-.categoryContainer .item{
+.categoryContainer .item {
     background-color: #011815;
     backdrop-filter: blur(10px);
     height: 50px;
@@ -127,27 +139,27 @@ header{
     justify-content: center;
     color: #ffffff;
     border: 2px solid #b8b8b867;
-    
+
 }
 
 
-.Category h1{
+.Category h1 {
     color: var(--Second-color);
     margin-bottom: 20px;
 }
 
 .Category h1::before,
-.Category h1::after{
+.Category h1::after {
     content: "✦";
 }
 
 
-.categoryContainer .item :hover{
+.categoryContainer .item :hover {
     transition: Fade all 1s;
     border: 4px solid #4c55696e;
 }
 
-.Restaurant{
+.Restaurant {
     width: 100%;
     display: flex;
     align-items: center;
@@ -156,8 +168,8 @@ header{
 }
 
 
-.MenuItems{
-    display:flex;
+.MenuItems {
+    display: flex;
     align-items: center;
     background-color: #ffffff9c;
     border: #fffffffb 1px solid;
@@ -167,28 +179,29 @@ header{
     margin-bottom: 10px;
 }
 
-.MenuItems img{
+.MenuItems img {
     width: 120px;
     border-radius: 0.7rem;
 }
 
-.itemDetail h3{
+.itemDetail h3 {
     font-size: 15px;
 }
-.itemDetail h5::after{
+
+.itemDetail h5::after {
     content: " تومان";
 }
 
-.itemDetail h5{
+.itemDetail h5 {
     font-size: 14px;
 }
 
-.itemDetail p{
+.itemDetail p {
     font-size: 12px;
     width: 100%;
 }
 
-.itemDetail span{
+.itemDetail span {
     background-color: rgb(54, 70, 68);
     font-size: 10px;
     padding: 3px 10px;
@@ -196,30 +209,31 @@ header{
     color: white;
 }
 
-.itemDetail{
+.itemDetail {
     margin-right: 10px;
     width: 100%;
 }
-.Restaurant h1{
+
+.Restaurant h1 {
     width: 90vw;
     text-align: right;
     color: var(--Second-color);
     margin-bottom: 10px;
 }
 
-.Restaurant h1::before{
+.Restaurant h1::before {
     content: "◀";
 }
 
-.OrderBtn{
+.OrderBtn {
     height: 100%;
 }
 
-.OrderBtn span{
+.OrderBtn span {
     font-size: 12px;
 }
 
-.callUs{
+.callUs {
     width: 100%;
     padding-bottom: 30px;
     height: auto;
@@ -231,7 +245,7 @@ header{
 
 
 
-.callUsTitle{
+.callUsTitle {
     width: 100%;
     height: 40px;
     display: flex;
@@ -244,21 +258,23 @@ header{
 
 
 .callUsTitle::before,
-.callUsTitle::after{
+.callUsTitle::after {
     content: "✦";
 }
 
-.CallInfo{
+.CallInfo {
     padding: 10px;
 
 }
-#AddTocart{
+
+#AddTocart {
     width: 35px;
 }
-#callUsicon{
+
+#callUsicon {
     width: 25px;
 }
 
-.CallInfo span{
+.CallInfo span {
     font-size: 15px;
 }
