@@ -8,14 +8,19 @@ console.log(ContactUs);
 
 
 
-ContactUs.addEventListener("click" , function () {
+ContactUs.addEventListener("click", function () {
     CallUsContainer.style.display = "inline"
 
 })
 
-CloseBtn.addEventListener("click" , function () {
+CloseBtn.addEventListener("click", function () {
     CallUsContainer.style.display = "none"
 })
 
+document.body.innerHTML = document.body.innerHTML.replace(
+    /\d/g,
+    d => '۰۱۲۳۴۵۶۷۸۹'[d]
+);
+    
 
 
