@@ -23,6 +23,19 @@ body {
     font-variant-numeric: normal;
 
 }
+.body {
+    width: 100vw;
+    background-color: var(--main-color);
+    display: flex;
+    align-items: center;
+    flex-direction: column;
+    background-image: url(BG.png);
+    background-size: cover;
+    font-feature-settings: "lnum", "pnum";
+    /* فعال کردن اعداد فونت */
+    font-variant-numeric: normal;
+
+}
 
 html[lang="fa"],
 body {
@@ -119,6 +132,12 @@ header {
     gap: 10px;
     width: 100%;
 }
+.categoryContainer2 {
+    display: grid;
+    grid-template-columns: repeat(1, 1fr);
+    gap: 10px;
+    width: 100%;
+}
 
 .ContactUs img {
     color: #061536;
@@ -141,6 +160,19 @@ header {
     border: 2px solid #b8b8b867;
 
 }
+.categoryContainer2 .item {
+    background-color: #011815;
+    backdrop-filter: blur(10px);
+    height: 50px;
+    border-radius: 0.5rem;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #ffffff;
+    border: 2px solid #b8b8b867;
+
+}
+
 
 
 .Category h1 {
@@ -277,4 +309,16 @@ header {
 
 .CallInfo span {
     font-size: 15px;
+}
+
+footer{
+    position: fixed;
+    bottom: 0;
+    background-color: white;
+    width: 100vw; 
+    padding: 1rem;
+    text-align: center;
+    font-size: large;
+    border-top-left-radius: 2rem;
+    border-top-right-radius:2rem ;
 }
