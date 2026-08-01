@@ -1,0 +1,1216 @@
+<!DOCTYPE html>
+<html lang="fa" dir="rtl">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>ویرایش منو | Cafe Amore</title>
+  <style>
+    :root {
+      --bg: #f6f1ea;
+      --card: #ffffff;
+      --ink: #2c2420;
+      --muted: #8a7d6f;
+      --line: #e7ddd0;
+      --accent: #a8562f;
+      --accent-soft: #f2e2d3;
+      --changed: #eef3e6;
+      --changed-line: #8fae6a;
+      --new: #eaf1f7;
+      --new-line: #6f9bbd;
+      --danger: #b3432f;
+      --danger-soft: #f7e6e2;
+      --radius: 10px;
+      font-family: "Vazirmatn", "Tahoma", sans-serif;
+    }
+
+    * {
+      box-sizing: border-box;
+      font-family: Doran;
+    }
+
+    @font-face {
+      font-family: Doran;
+      src: url(./doran.ttf);
+    }
+
+    body {
+      margin: 0;
+      background: var(--bg);
+      color: var(--ink);
+      padding-bottom: 110px;
+
+    }
+
+    header.top {
+      background: var(--card);
+      border-bottom: 1px solid var(--line);
+      padding: 22px 20px 18px;
+      position: sticky;
+      top: 0;
+      z-index: 5;
+    }
+
+    header.top h1 {
+      margin: 0 0 4px;
+      font-size: 22px;
+      font-weight: 700;
+    }
+
+    header.top p {
+      margin: 0 0 14px;
+      color: var(--muted);
+      font-size: 13.5px;
+    }
+
+    .searchBox {
+      display: flex;
+      gap: 8px;
+      max-width: 520px;
+    }
+
+    .searchBox input {
+      flex: 1;
+      padding: 10px 14px;
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .searchBox input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    main {
+      max-width: 780px;
+      margin: 24px auto;
+      padding: 0 16px;
+    }
+
+    section.category {
+      margin-bottom: 26px;
+    }
+
+    .category-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 10px;
+      border-bottom: 2px solid var(--accent-soft);
+      padding-bottom: 8px;
+      margin-bottom: 10px;
+    }
+
+    .category-header h2 {
+      font-size: 15px;
+      color: var(--accent);
+      margin: 0;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .badge {
+      font-size: 11px;
+      padding: 2px 8px;
+      border-radius: 20px;
+      font-weight: 600;
+    }
+
+    .badge.new {
+      background: var(--new-line);
+      color: #fff;
+    }
+
+    .row {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      background: var(--card);
+      border: 1px solid var(--line);
+      border-radius: var(--radius);
+      padding: 12px 14px;
+      margin-bottom: 8px;
+      transition: background .15s, border-color .15s;
+    }
+
+    .row.changed {
+      background: var(--changed);
+      border-color: var(--changed-line);
+    }
+
+    .row.is-new {
+      background: var(--new);
+      border-color: var(--new-line);
+    }
+
+    .row .info {
+      flex: 1;
+      min-width: 0;
+    }
+
+    .row .info .name {
+      font-size: 14.5px;
+      font-weight: 600;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .row .info .desc {
+      font-size: 12px;
+      color: var(--muted);
+      margin-top: 2px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    .priceField {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      flex-shrink: 0;
+    }
+
+    .priceField input {
+      width: 100px;
+      padding: 8px 10px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 14px;
+      text-align: center;
+      color: var(--ink);
+      background: var(--bg);
+    }
+
+    .priceField input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .priceField span.unit {
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 34px;
+    }
+
+    .preview {
+      font-size: 12px;
+      color: var(--muted);
+      min-width: 66px;
+      text-align: left;
+      flex-shrink: 0;
+    }
+
+    .empty {
+      text-align: center;
+      color: var(--muted);
+      padding: 40px 0;
+      font-size: 14px;
+    }
+
+    .iconBtn {
+      flex-shrink: 0;
+      width: 32px;
+      height: 32px;
+      border-radius: 8px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--danger);
+      font-size: 15px;
+      line-height: 1;
+      cursor: pointer;
+      padding: 0;
+    }
+
+    .iconBtn:hover {
+      background: var(--danger-soft);
+      border-color: var(--danger);
+    }
+
+    .iconBtn.edit {
+      color: var(--accent);
+    }
+
+    .iconBtn.edit:hover {
+      background: var(--accent-soft);
+      border-color: var(--accent);
+    }
+
+    .reorderBtns {
+      display: flex;
+      flex-direction: column;
+      gap: 3px;
+      flex-shrink: 0;
+    }
+
+    .reorderBtns button {
+      width: 26px;
+      height: 20px;
+      padding: 0;
+      border-radius: 5px;
+      border: 1px solid var(--line);
+      background: var(--bg);
+      color: var(--muted);
+      font-size: 11px;
+      line-height: 1;
+      cursor: pointer;
+    }
+
+    .reorderBtns button:hover:not(:disabled) {
+      background: var(--accent-soft);
+      color: var(--accent);
+      border-color: var(--accent);
+    }
+
+    .reorderBtns button:disabled {
+      opacity: 0.3;
+      cursor: not-allowed;
+    }
+
+    .badge.order {
+      background: #cfa15c;
+      color: #fff;
+    }
+
+    .catActions {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .textBtn {
+      background: none;
+      border: none;
+      color: var(--muted);
+      font-size: 12.5px;
+      cursor: pointer;
+      padding: 4px 6px;
+      text-decoration: underline;
+    }
+
+    .textBtn.danger {
+      color: var(--danger);
+    }
+
+    .addItemBtn {
+      width: 100%;
+      background: var(--card);
+      border: 1px dashed var(--line);
+      color: var(--accent);
+      border-radius: var(--radius);
+      padding: 10px;
+      font-size: 13.5px;
+      cursor: pointer;
+      margin-top: 4px;
+    }
+
+    .addItemBtn:hover {
+      background: var(--accent-soft);
+    }
+
+    .formCard {
+      background: var(--card);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      padding: 14px;
+      margin-top: 8px;
+    }
+
+    .formCard .field {
+      margin-bottom: 10px;
+    }
+
+    .formCard label {
+      display: block;
+      font-size: 12px;
+      color: var(--muted);
+      margin-bottom: 4px;
+    }
+
+    .formCard input {
+      width: 100%;
+      padding: 9px 11px;
+      border: 1px solid var(--line);
+      border-radius: 8px;
+      font-size: 14px;
+      background: var(--bg);
+      color: var(--ink);
+    }
+
+    .formCard input:focus {
+      outline: 2px solid var(--accent);
+      outline-offset: 1px;
+    }
+
+    .formCard .formActions {
+      display: flex;
+      gap: 8px;
+      margin-top: 12px;
+    }
+
+    .formCard .hint {
+      font-size: 11.5px;
+      color: var(--muted);
+      margin-top: 4px;
+    }
+
+    .formCard .error {
+      font-size: 12px;
+      color: var(--danger);
+      margin-top: 6px;
+      display: none;
+    }
+
+    .addCategorySection {
+      margin-top: 30px;
+      padding-top: 10px;
+    }
+
+    footer.bar {
+      position: fixed;
+      bottom: 0;
+      left: 0;
+      right: 0;
+      background: var(--card);
+      border-top: 1px solid var(--line);
+      padding: 14px 20px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      gap: 12px;
+      box-shadow: 0 -4px 16px rgba(0, 0, 0, 0.05);
+    }
+
+    footer.bar .status {
+      font-size: 13px;
+      color: var(--muted);
+    }
+
+    footer.bar .status strong {
+      color: var(--ink);
+    }
+
+    .actions {
+      display: flex;
+      gap: 10px;
+    }
+
+    button {
+      font-family: inherit;
+      font-size: 14px;
+      padding: 10px 18px;
+      border-radius: var(--radius);
+      border: none;
+      cursor: pointer;
+    }
+
+    button.primary {
+      background: var(--accent);
+      color: #fff;
+      font-weight: 600;
+    }
+
+    button.primary:disabled {
+      background: #cbbba9;
+      cursor: not-allowed;
+    }
+
+    button.secondary {
+      background: var(--bg);
+      border: 1px solid var(--line);
+      color: var(--ink);
+    }
+
+    button.outline {
+      background: var(--card);
+      border: 1px dashed var(--accent);
+      color: var(--accent);
+    }
+
+    .banner {
+      max-width: 780px;
+      margin: 16px auto 0;
+      padding: 12px 16px;
+      background: var(--accent-soft);
+      border: 1px solid var(--accent);
+      border-radius: var(--radius);
+      font-size: 13px;
+      line-height: 1.9;
+    }
+
+    .toast {
+      position: fixed;
+      bottom: 90px;
+      left: 50%;
+      transform: translateX(-50%) translateY(20px);
+      background: var(--ink);
+      color: #fff;
+      padding: 10px 18px;
+      border-radius: 8px;
+      font-size: 13px;
+      opacity: 0;
+      transition: opacity .25s, transform .25s;
+      pointer-events: none;
+      z-index: 20;
+      max-width: 90%;
+      text-align: center;
+    }
+
+    .toast.show {
+      opacity: 1;
+      transform: translateX(-50%) translateY(0);
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="top">
+    <h1>ویرایش منو</h1>
+    <p>قیمت‌ها رو عوض کن، آیتم یا دسته‌بندی اضافه/حذف کن، بعد پایین صفحه فایل جدید رو دانلود کن.</p>
+    <div class="searchBox">
+      <input type="text" id="searchInput" placeholder="جستجوی نام آیتم…">
+    </div>
+  </header>
+
+  <div class="banner" id="setupBanner" hidden>
+    فایل <code>menu-data.js</code> پیدا نشد یا لود نشد. این صفحه (<code>admin.html</code>) رو کنار
+    همون فایل <code>menu-data.js</code> که برات ساختم بذار و دوباره بازش کن.
+  </div>
+
+  <main id="menuRoot"></main>
+
+  <div class="toast" id="toast"></div>
+
+  <footer class="bar">
+    <div class="status" id="statusText">هیچ تغییری هنوز اعمال نشده</div>
+    <div class="actions">
+      <button class="secondary" id="resetBtn">برگردوندن تغییرات</button>
+      <button class="primary" id="downloadBtn">دانلود فایل menu-data.js جدید</button>
+    </div>
+  </footer>
+
+  <script src="menu-data.js" onerror="document.getElementById('setupBanner').hidden=false"></script>
+  <script>
+    (function () {
+      if (typeof menuData === 'undefined') {
+        document.getElementById('setupBanner').hidden = false;
+        return;
+      }
+
+      let uidCounter = 0;
+      function nextUid() { return 'u' + (uidCounter++); }
+
+      function cloneWithUids(data) {
+        return data.map((section) => ({
+          ...section,
+          _uid: nextUid(),
+          items: section.items.map((item) => ({ ...item, _uid: nextUid() })),
+        }));
+      }
+
+      let workingData = cloneWithUids(menuData);
+
+      // اطلاعات مرجع برای تشخیص تغییرات: فقط آیتم/دسته‌هایی که از اول بودن اینجا ثبت میشن
+      const originalItemDataByUid = {};
+      const originalItemUids = new Set();
+      const originalSectionUids = new Set();
+      const originalOrderBySectionUid = {}; // ترتیب اولیه‌ی آیتم‌ها (uid) توی هر دسته
+      workingData.forEach((section) => {
+        originalSectionUids.add(section._uid);
+        originalOrderBySectionUid[section._uid] = section.items.map((it) => it._uid);
+        section.items.forEach((item) => {
+          originalItemUids.add(item._uid);
+          originalItemDataByUid[item._uid] = {
+            name: item.name,
+            desc: item.desc || '',
+            price: item.price,
+            img: item.img || '',
+          };
+        });
+      });
+
+      function isItemChanged(item) {
+        if (!originalItemUids.has(item._uid)) return false; // آیتم جدیده، "تغییر" حساب نمیشه
+        const orig = originalItemDataByUid[item._uid];
+        return (
+          item.name !== orig.name ||
+          (item.desc || '') !== orig.desc ||
+          item.price !== orig.price ||
+          (item.img || '') !== orig.img
+        );
+      }
+
+      function isSectionOrderChanged(section) {
+        const origOrder = originalOrderBySectionUid[section._uid];
+        if (!origOrder) return false; // دسته‌ی جدیده
+        const currentPresentOriginal = section.items
+          .map((it) => it._uid)
+          .filter((uid) => origOrder.includes(uid));
+        const origStillPresent = origOrder.filter((uid) =>
+          section.items.some((it) => it._uid === uid)
+        );
+        if (currentPresentOriginal.length !== origStillPresent.length) return false;
+        for (let i = 0; i < currentPresentOriginal.length; i++) {
+          if (currentPresentOriginal[i] !== origStillPresent[i]) return true;
+        }
+        return false;
+      }
+
+      function moveItem(section, uid, direction) {
+        const idx = section.items.findIndex((it) => it._uid === uid);
+        if (idx === -1) return;
+        const newIdx = idx + direction;
+        if (newIdx < 0 || newIdx >= section.items.length) return;
+        const tmp = section.items[idx];
+        section.items[idx] = section.items[newIdx];
+        section.items[newIdx] = tmp;
+        updateStatus();
+        render(searchInput.value);
+      }
+
+      let openAddItemForSection = null; // uid دسته‌ای که فرم افزودن آیتمش بازه
+      let editItemUid = null; // uid آیتمی که در حال ویرایشه
+      let showAddCategoryForm = false;
+      let formError = '';
+
+      const root = document.getElementById('menuRoot');
+      const statusText = document.getElementById('statusText');
+      const downloadBtn = document.getElementById('downloadBtn');
+      const resetBtn = document.getElementById('resetBtn');
+      const searchInput = document.getElementById('searchInput');
+      const toast = document.getElementById('toast');
+
+      function toPersianDigits(str) {
+        const persian = ['۰', '۱', '۲', '۳', '۴', '۵', '۶', '۷', '۸', '۹'];
+        return String(str).replace(/\d/g, (d) => persian[d]);
+      }
+
+      function formatPrice(num) {
+        if (num === '' || num === undefined || num === null || isNaN(num)) return '—';
+        const withSeparators = Number(num).toLocaleString('en-US').replace(/,/g, '،');
+        return toPersianDigits(withSeparators);
+      }
+
+      function showToast(msg) {
+        toast.textContent = msg;
+        toast.classList.add('show');
+        setTimeout(() => toast.classList.remove('show'), 2400);
+      }
+
+      function updateStatus() {
+        let priceChanges = 0;
+        let itemsAdded = 0;
+        let itemsRemoved = 0;
+        let sectionsAdded = 0;
+        let sectionsWithOrderChange = 0;
+
+        workingData.forEach((section) => {
+          if (!originalSectionUids.has(section._uid)) sectionsAdded++;
+          if (isSectionOrderChanged(section)) sectionsWithOrderChange++;
+          section.items.forEach((item) => {
+            if (!originalItemUids.has(item._uid)) {
+              itemsAdded++;
+            } else if (isItemChanged(item)) {
+              priceChanges++;
+            }
+          });
+        });
+
+        const remainingItemUids = new Set();
+        workingData.forEach((s) => s.items.forEach((it) => remainingItemUids.add(it._uid)));
+        originalItemUids.forEach((uid) => {
+          if (!remainingItemUids.has(uid)) itemsRemoved++;
+        });
+
+        const remainingSectionUids = new Set(workingData.map((s) => s._uid));
+        let sectionsRemoved = 0;
+        originalSectionUids.forEach((uid) => {
+          if (!remainingSectionUids.has(uid)) sectionsRemoved++;
+        });
+
+        const parts = [];
+        if (priceChanges) parts.push(toPersianDigits(priceChanges) + ' آیتم ویرایش شده');
+        if (itemsAdded) parts.push(toPersianDigits(itemsAdded) + ' آیتم اضافه شده');
+        if (itemsRemoved) parts.push(toPersianDigits(itemsRemoved) + ' آیتم حذف شده');
+        if (sectionsAdded) parts.push(toPersianDigits(sectionsAdded) + ' دسته‌ اضافه شده');
+        if (sectionsRemoved) parts.push(toPersianDigits(sectionsRemoved) + ' دسته‌ حذف شده');
+        if (sectionsWithOrderChange) parts.push('ترتیب ' + toPersianDigits(sectionsWithOrderChange) + ' دسته تغییر کرده');
+
+        statusText.textContent = parts.length ? parts.join(' — ') : 'هیچ تغییری هنوز اعمال نشده';
+      }
+
+      function makeSlugHint(title) {
+        return title.replace(/\s+/g, '');
+      }
+
+      function render(filterText) {
+        root.innerHTML = '';
+        const q = (filterText || '').trim();
+
+        let anyVisible = false;
+
+        workingData.forEach((section) => {
+          const matchingItems = section.items.filter((item) => !q || item.name.includes(q));
+          const isNewSection = !originalSectionUids.has(section._uid);
+          const isAddFormOpen = openAddItemForSection === section._uid;
+
+          if (q && matchingItems.length === 0) return;
+
+          anyVisible = true;
+
+          const secEl = document.createElement('section');
+          secEl.className = 'category';
+
+          const headerEl = document.createElement('div');
+          headerEl.className = 'category-header';
+
+          const h2 = document.createElement('h2');
+          h2.textContent = section.title;
+          if (isNewSection) {
+            const badge = document.createElement('span');
+            badge.className = 'badge new';
+            badge.textContent = 'دسته جدید';
+            h2.appendChild(badge);
+          } else if (isSectionOrderChanged(section)) {
+            const badge = document.createElement('span');
+            badge.className = 'badge order';
+            badge.textContent = 'ترتیب تغییر کرد';
+            h2.appendChild(badge);
+          }
+          headerEl.appendChild(h2);
+
+          const catActions = document.createElement('div');
+          catActions.className = 'catActions';
+          const delCatBtn = document.createElement('button');
+          delCatBtn.className = 'textBtn danger';
+          delCatBtn.textContent = 'حذف این دسته';
+          delCatBtn.addEventListener('click', () => {
+            const n = section.items.length;
+            const msg = n > 0
+              ? 'این دسته و ' + toPersianDigits(n) + ' آیتم توش حذف بشه؟'
+              : 'این دسته حذف بشه؟';
+            if (confirm(msg)) {
+              workingData = workingData.filter((s) => s._uid !== section._uid);
+              updateStatus();
+              render(searchInput.value);
+              showToast('دسته "' + section.title + '" حذف شد');
+            }
+          });
+          catActions.appendChild(delCatBtn);
+          headerEl.appendChild(catActions);
+
+          secEl.appendChild(headerEl);
+
+          matchingItems.forEach((item, visibleIndex) => {
+            const row = document.createElement('div');
+            row.className = 'row';
+            const isNewItem = !originalItemUids.has(item._uid);
+            if (isNewItem) {
+              row.classList.add('is-new');
+            } else if (isItemChanged(item)) {
+              row.classList.add('changed');
+            }
+
+            const isEditing = editItemUid === item._uid;
+
+            if (isEditing) {
+              secEl.appendChild(buildEditItemForm(section, item));
+              return;
+            }
+
+            if (!q) {
+              const realIdx = section.items.findIndex((it) => it._uid === item._uid);
+              const reorderWrap = document.createElement('div');
+              reorderWrap.className = 'reorderBtns';
+              const upBtn = document.createElement('button');
+              upBtn.textContent = '▲';
+              upBtn.title = 'جابه‌جایی به بالا';
+              upBtn.disabled = realIdx === 0;
+              upBtn.addEventListener('click', () => moveItem(section, item._uid, -1));
+              const downBtn = document.createElement('button');
+              downBtn.textContent = '▼';
+              downBtn.title = 'جابه‌جایی به پایین';
+              downBtn.disabled = realIdx === section.items.length - 1;
+              downBtn.addEventListener('click', () => moveItem(section, item._uid, 1));
+              reorderWrap.appendChild(upBtn);
+              reorderWrap.appendChild(downBtn);
+              row.appendChild(reorderWrap);
+            }
+
+            const info = document.createElement('div');
+            info.className = 'info';
+            const nameEl = document.createElement('div');
+            nameEl.className = 'name';
+            const nameText = document.createElement('span');
+            nameText.textContent = item.name;
+            nameEl.appendChild(nameText);
+            if (isNewItem) {
+              const badge = document.createElement('span');
+              badge.className = 'badge new';
+              badge.textContent = 'جدید';
+              nameEl.appendChild(badge);
+            }
+            info.appendChild(nameEl);
+            if (item.desc) {
+              const descEl = document.createElement('div');
+              descEl.className = 'desc';
+              descEl.textContent = item.desc;
+              info.appendChild(descEl);
+            }
+            row.appendChild(info);
+
+            const preview = document.createElement('div');
+            preview.className = 'preview';
+            preview.textContent = formatPrice(item.price) + ' ت';
+            row.appendChild(preview);
+
+            const priceField = document.createElement('div');
+            priceField.className = 'priceField';
+            const input = document.createElement('input');
+            input.type = 'number';
+            input.min = '0';
+            input.step = '1000';
+            input.value = item.price;
+            input.addEventListener('input', () => {
+              const val = input.value === '' ? '' : parseInt(input.value, 10);
+              item.price = val;
+              preview.textContent = formatPrice(val) + ' ت';
+              row.classList.toggle('changed', !isNewItem && isItemChanged(item));
+              updateStatus();
+            });
+            priceField.appendChild(input);
+            row.appendChild(priceField);
+
+            const editBtn = document.createElement('button');
+            editBtn.className = 'iconBtn edit';
+            editBtn.title = 'ویرایش نام / توضیحات / عکس';
+            editBtn.textContent = '✎';
+            editBtn.addEventListener('click', () => {
+              editItemUid = item._uid;
+              formError = '';
+              render(searchInput.value);
+            });
+            row.appendChild(editBtn);
+
+            const delBtn = document.createElement('button');
+            delBtn.className = 'iconBtn';
+            delBtn.title = 'حذف این آیتم';
+            delBtn.textContent = '✕';
+            delBtn.addEventListener('click', () => {
+              if (confirm('آیتم "' + item.name + '" حذف بشه؟')) {
+                section.items = section.items.filter((it) => it._uid !== item._uid);
+                updateStatus();
+                render(searchInput.value);
+                showToast('آیتم "' + item.name + '" حذف شد');
+              }
+            });
+            row.appendChild(delBtn);
+
+            secEl.appendChild(row);
+          });
+
+          if (isAddFormOpen) {
+            secEl.appendChild(buildAddItemForm(section));
+          } else if (!q) {
+            const addBtn = document.createElement('button');
+            addBtn.className = 'addItemBtn';
+            addBtn.textContent = '+ افزودن آیتم به «' + section.title + '»';
+            addBtn.addEventListener('click', () => {
+              openAddItemForSection = section._uid;
+              formError = '';
+              render(searchInput.value);
+            });
+            secEl.appendChild(addBtn);
+          }
+
+          root.appendChild(secEl);
+        });
+
+        if (!anyVisible) {
+          const empty = document.createElement('div');
+          empty.className = 'empty';
+          empty.textContent = 'هیچ آیتمی با این اسم پیدا نشد.';
+          root.appendChild(empty);
+        }
+
+        if (!q) {
+          root.appendChild(buildAddCategorySection());
+        }
+
+        updateStatus();
+      }
+
+      function buildAddItemForm(section) {
+        const card = document.createElement('div');
+        card.className = 'formCard';
+
+        const nameField = fieldRow('نام آیتم *', 'text', '');
+        const descField = fieldRow('توضیحات (اختیاری)', 'text', '');
+        const priceField = fieldRow('قیمت (تومان) *', 'number', '');
+        const imgField = fieldRow('نام فایل عکس (اختیاری، باید قبلاً آپلود شده باشه)', 'text', '');
+
+        card.appendChild(nameField.wrap);
+        card.appendChild(descField.wrap);
+        card.appendChild(priceField.wrap);
+        card.appendChild(imgField.wrap);
+
+        const errorEl = document.createElement('div');
+        errorEl.className = 'error';
+        if (formError) {
+          errorEl.textContent = formError;
+          errorEl.style.display = 'block';
+        }
+        card.appendChild(errorEl);
+
+        const actionsEl = document.createElement('div');
+        actionsEl.className = 'formActions';
+
+        const saveBtn = document.createElement('button');
+        saveBtn.className = 'primary';
+        saveBtn.textContent = 'افزودن آیتم';
+        saveBtn.addEventListener('click', () => {
+          const name = nameField.input.value.trim();
+          const priceStr = priceField.input.value.trim();
+          const price = parseInt(priceStr, 10);
+
+          if (!name) {
+            formError = 'نام آیتم رو وارد کن.';
+            render(searchInput.value);
+            return;
+          }
+          if (priceStr === '' || isNaN(price) || price < 0) {
+            formError = 'قیمت معتبر (عدد، به تومان) وارد کن.';
+            render(searchInput.value);
+            return;
+          }
+
+          section.items.push({
+            _uid: nextUid(),
+            name: name,
+            desc: descField.input.value.trim(),
+            price: price,
+            img: imgField.input.value.trim(),
+            orderBtn: true,
+          });
+
+          openAddItemForSection = null;
+          formError = '';
+          updateStatus();
+          render(searchInput.value);
+          showToast('آیتم "' + name + '" اضافه شد');
+        });
+        actionsEl.appendChild(saveBtn);
+
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'secondary';
+        cancelBtn.textContent = 'انصراف';
+        cancelBtn.addEventListener('click', () => {
+          openAddItemForSection = null;
+          formError = '';
+          render(searchInput.value);
+        });
+        actionsEl.appendChild(cancelBtn);
+
+        card.appendChild(actionsEl);
+        return card;
+      }
+
+      function buildEditItemForm(section, item) {
+        const card = document.createElement('div');
+        card.className = 'formCard';
+
+        const nameField = fieldRow('نام آیتم *', 'text', item.name);
+        const descField = fieldRow('توضیحات (اختیاری)', 'text', item.desc || '');
+        const priceField = fieldRow('قیمت (تومان) *', 'number', item.price);
+        const imgField = fieldRow('نام فایل عکس (اختیاری، باید قبلاً آپلود شده باشه)', 'text', item.img || '');
+
+        card.appendChild(nameField.wrap);
+        card.appendChild(descField.wrap);
+        card.appendChild(priceField.wrap);
+        card.appendChild(imgField.wrap);
+
+        const errorEl = document.createElement('div');
+        errorEl.className = 'error';
+        if (formError) {
+          errorEl.textContent = formError;
+          errorEl.style.display = 'block';
+        }
+        card.appendChild(errorEl);
+
+        const actionsEl = document.createElement('div');
+        actionsEl.className = 'formActions';
+
+        const saveBtn = document.createElement('button');
+        saveBtn.className = 'primary';
+        saveBtn.textContent = 'ذخیره تغییرات';
+        saveBtn.addEventListener('click', () => {
+          const name = nameField.input.value.trim();
+          const priceStr = priceField.input.value.trim();
+          const price = parseInt(priceStr, 10);
+
+          if (!name) {
+            formError = 'نام آیتم رو وارد کن.';
+            render(searchInput.value);
+            return;
+          }
+          if (priceStr === '' || isNaN(price) || price < 0) {
+            formError = 'قیمت معتبر (عدد، به تومان) وارد کن.';
+            render(searchInput.value);
+            return;
+          }
+
+          item.name = name;
+          item.desc = descField.input.value.trim();
+          item.price = price;
+          item.img = imgField.input.value.trim();
+
+          editItemUid = null;
+          formError = '';
+          updateStatus();
+          render(searchInput.value);
+          showToast('آیتم "' + name + '" ذخیره شد');
+        });
+        actionsEl.appendChild(saveBtn);
+
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'secondary';
+        cancelBtn.textContent = 'انصراف';
+        cancelBtn.addEventListener('click', () => {
+          editItemUid = null;
+          formError = '';
+          render(searchInput.value);
+        });
+        actionsEl.appendChild(cancelBtn);
+
+        card.appendChild(actionsEl);
+        return card;
+      }
+
+      function buildAddCategorySection() {
+        const wrap = document.createElement('div');
+        wrap.className = 'addCategorySection';
+
+        if (!showAddCategoryForm) {
+          const btn = document.createElement('button');
+          btn.className = 'outline';
+          btn.style.width = '100%';
+          btn.textContent = '+ افزودن دسته‌بندی جدید';
+          btn.addEventListener('click', () => {
+            showAddCategoryForm = true;
+            formError = '';
+            render(searchInput.value);
+          });
+          wrap.appendChild(btn);
+          return wrap;
+        }
+
+        const card = document.createElement('div');
+        card.className = 'formCard';
+
+        const titleField = fieldRow('اسم دسته (فارسی) *', 'text', '');
+        const idField = fieldRow('شناسه انگلیسی دسته (id) *', 'text', '');
+        idField.input.placeholder = 'مثلا Desserts — بدون فاصله و فقط حروف انگلیسی';
+
+        titleField.input.addEventListener('input', () => {
+          if (!idField.touched) {
+            idField.input.value = makeSlugHint(titleField.input.value);
+          }
+        });
+        idField.input.addEventListener('input', () => {
+          idField.touched = true;
+        });
+
+        card.appendChild(titleField.wrap);
+        card.appendChild(idField.wrap);
+
+        const hint = document.createElement('div');
+        hint.className = 'hint';
+        hint.textContent = 'نکته: این دسته توی صفحه‌ی منو نمایش داده میشه، ولی برای اینکه توی نوار دسته‌بندی‌های بالای سایت هم لینک بشه، باید یک لینک با همین شناسه به‌صورت دستی به index.html اضافه کنی — بعد از دانلود فایل بهت یادآوری می‌کنم.';
+        card.appendChild(hint);
+
+        const errorEl = document.createElement('div');
+        errorEl.className = 'error';
+        if (formError) {
+          errorEl.textContent = formError;
+          errorEl.style.display = 'block';
+        }
+        card.appendChild(errorEl);
+
+        const actionsEl = document.createElement('div');
+        actionsEl.className = 'formActions';
+
+        const saveBtn = document.createElement('button');
+        saveBtn.className = 'primary';
+        saveBtn.textContent = 'افزودن دسته';
+        saveBtn.addEventListener('click', () => {
+          const title = titleField.input.value.trim();
+          const id = idField.input.value.trim();
+
+          if (!title) {
+            formError = 'اسم دسته رو وارد کن.';
+            render(searchInput.value);
+            return;
+          }
+          if (!id || !/^[A-Za-z0-9_-]+$/.test(id)) {
+            formError = 'شناسه فقط باید حروف/عدد انگلیسی باشه، بدون فاصله (مثلا Desserts).';
+            render(searchInput.value);
+            return;
+          }
+          if (workingData.some((s) => s.id === id)) {
+            formError = 'این شناسه قبلاً استفاده شده، یه شناسه دیگه بذار.';
+            render(searchInput.value);
+            return;
+          }
+
+          workingData.push({
+            _uid: nextUid(),
+            id: id,
+            title: title,
+            items: [],
+          });
+
+          showAddCategoryForm = false;
+          formError = '';
+          updateStatus();
+          render(searchInput.value);
+          showToast('دسته "' + title + '" اضافه شد — یادت نره لینکش رو توی index.html هم اضافه کنی');
+        });
+        actionsEl.appendChild(saveBtn);
+
+        const cancelBtn = document.createElement('button');
+        cancelBtn.className = 'secondary';
+        cancelBtn.textContent = 'انصراف';
+        cancelBtn.addEventListener('click', () => {
+          showAddCategoryForm = false;
+          formError = '';
+          render(searchInput.value);
+        });
+        actionsEl.appendChild(cancelBtn);
+
+        card.appendChild(actionsEl);
+        wrap.appendChild(card);
+        return wrap;
+      }
+
+      function fieldRow(labelText, type, value) {
+        const wrap = document.createElement('div');
+        wrap.className = 'field';
+        const label = document.createElement('label');
+        label.textContent = labelText;
+        wrap.appendChild(label);
+        const input = document.createElement('input');
+        input.type = type;
+        input.value = value;
+        if (type === 'number') {
+          input.min = '0';
+          input.step = '1000';
+        }
+        wrap.appendChild(input);
+        return { wrap, input, touched: false };
+      }
+
+      function esc(s) {
+        return String(s).replace(/\\/g, '\\\\').replace(/'/g, "\\'");
+      }
+
+      function generateFileContent(data) {
+        const lines = [];
+        lines.push('// ============================================================');
+        lines.push('// فایل داده‌های منو - Cafe Amore');
+        lines.push('// ============================================================');
+        lines.push('// برای تغییر قیمت یک آیتم، فقط عدد جلوی "price" رو عوض کن.');
+        lines.push('// قیمت‌ها به تومان و به صورت عدد ساده (بدون کاما و بدون رقم فارسی) نوشته می‌شن،');
+        lines.push('// خود سایت موقع نمایش، قیمت رو با فرمت فارسی (۴۵۰،۰۰۰) نشون میده.');
+        lines.push('//');
+        lines.push('// برای اضافه کردن یک آیتم جدید، یک بلوک { ... } جدید داخل آرایه items همون');
+        lines.push('// دسته اضافه کن (شبیه آیتم‌های موجود).');
+        lines.push('//');
+        lines.push('// برای اضافه کردن یک دسته جدید (مثلا یک دسته غذایی تازه)، یک بلوک');
+        lines.push('// { id: "...", title: "...", items: [...] } جدید به آرایه‌ی اصلی زیر اضافه کن.');
+        lines.push('// نکته: مقدار id همون چیزیه که توی لینک‌های دسته‌بندی بالای سایت');
+        lines.push('// (مثلا href="#Breakfast") استفاده شده، پس باید دقیقا مطابقت داشته باشه.');
+        lines.push('//');
+        lines.push('// این فایل آخرین بار توسط صفحه‌ی ویرایش تصویری (admin.html) به‌روز شده.');
+        lines.push('// ============================================================');
+        lines.push('');
+        lines.push('const menuData = [');
+
+        data.forEach((section) => {
+          lines.push('  {');
+          lines.push("    id: '" + esc(section.id) + "',");
+          lines.push("    title: '" + esc(section.title) + "',");
+          lines.push('    items: [');
+          section.items.forEach((item) => {
+            lines.push('      {');
+            lines.push("        name: '" + esc(item.name) + "',");
+            if (item.desc) {
+              lines.push("        desc: '" + esc(item.desc) + "',");
+            }
+            const priceVal = (item.price === '' || item.price === null || isNaN(item.price)) ? 0 : item.price;
+            lines.push('        price: ' + priceVal + ', // تومان');
+            if (item.img) {
+              lines.push("        img: '" + esc(item.img) + "',");
+            }
+            if (item.orderBtn === false) {
+              lines.push('        orderBtn: false,');
+            }
+            lines.push('      },');
+          });
+          lines.push('    ]');
+          lines.push('  },');
+        });
+
+        lines.push('];');
+        lines.push('');
+        return lines.join('\n');
+      }
+
+      downloadBtn.addEventListener('click', () => {
+        const newSections = workingData.filter((s) => !originalSectionUids.has(s._uid));
+        const content = generateFileContent(workingData);
+        const blob = new Blob([content], { type: 'text/javascript;charset=utf-8' });
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a');
+        a.href = url;
+        a.download = 'menu-data.js';
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+        URL.revokeObjectURL(url);
+
+        if (newSections.length > 0) {
+          const names = newSections.map((s) => s.title + ' (#' + s.id + ')').join('، ');
+          showToast('فایل دانلود شد. یادت نره لینک این دسته‌های جدید رو دستی به index.html اضافه کنی: ' + names);
+        } else {
+          showToast('فایل menu-data.js دانلود شد — جای فایل قبلی روی هاست بذارش');
+        }
+      });
+
+      resetBtn.addEventListener('click', () => {
+        uidCounter = 0;
+        workingData = cloneWithUids(menuData);
+        openAddItemForSection = null;
+        editItemUid = null;
+        showAddCategoryForm = false;
+        formError = '';
+        updateStatus();
+        render(searchInput.value);
+        showToast('تغییرات برگردونده شد');
+      });
+
+      searchInput.addEventListener('input', () => render(searchInput.value));
+
+      render('');
+      updateStatus();
+    })();
+  </script>
+
+</body>
+
+</html>
