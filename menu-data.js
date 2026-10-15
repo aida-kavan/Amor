@@ -119,8 +119,8 @@ const menuData = [
     ]
   },
   {
-    id: 'Pizzas',
-    title: 'پیتزا ها',
+    id: 'ItalianPizza',
+    title: 'پیتزای ایتالیایی',
     items: [
       {
         name: 'پیتزا مخصوص',
@@ -190,7 +190,7 @@ const menuData = [
     ]
   },
   {
-    id: 'american-pizza',
+    id: 'AmericanPizza',
     title: 'پیتزای آمریکایی',
     items: [
       {
